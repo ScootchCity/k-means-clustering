@@ -1,21 +1,9 @@
-/**
- * Author: Nikolaus Mayer, 2014  (mayern@informatik.uni-freiburg.de)
- * Generic C++ + CMake example
- */
-
-// System/STL
 #include <iostream>
 
+using namespace std;
 
-/**
- * MAIN
- */
-int main( int argc, char** argv ) {
+int main() {
   
-  std::cout << "Hello World!"
-            << std::endl;
-
-  /// Bye!
-  return 0;
+  cout << "Hello World!" << endl;
 }
 
