@@ -1,7 +1,22 @@
 # Build artifacts
+build/
 out/
 bin/
 lib/
+*.exe
+*.o
+*.obj
+*.a
+*.lib
+*.so
+*.dylib
+*.dll
+
+# CMake files
+CMakeCache.txt
+CMakeFiles/
+cmake_install.cmake
+Makefile
 
 # IDE files
 .vs/
@@ -11,3 +26,10 @@ lib/
 *.swo
 *~
 .DS_Store
+
+# Output directory (clustering results)
+output/*.csv
+
+# Keep data directory tracked (input datasets)
+!data/
+!data/*.csv
