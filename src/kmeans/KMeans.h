@@ -9,11 +9,11 @@ using namespace std;
 
 class KMeans {
 public:
-    // K-means algorithm implementation will go here
+    //l-means algorithm implementation will go here
 
 private:
     vector<Point> points;
-    vector<ClusterCenter> centers;
+    vector<Cluster> clusters;
     int k;
     double epsilon;
 };

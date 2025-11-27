@@ -6,7 +6,7 @@ struct Point {
     double x;
     double y;
     int cluster_id;
-    double distance_to_center;
+    double distance_to_cluster;
 };
 
 #endif // POINT_H

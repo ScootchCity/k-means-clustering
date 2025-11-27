@@ -9,7 +9,7 @@ using namespace std;
 
 class CSVReader {
 public:
-    // Reads CSV file and returns vector of Points
+    //reads CSV file and returns vector of points
     vector<Point> readCSV(string filename);
 
 private:

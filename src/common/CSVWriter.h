@@ -10,7 +10,10 @@ using namespace std;
 
 class CSVWriter {
 public:
-    // Writes points and cluster centers to CSV files
+    //writes points to CSV file
+    void writePoints(vector<Point> points, string filename);
+    //writes clusters to CSV file
+    void writeClusters(vector<Cluster> clusters, string filename);
 
 private:
 };

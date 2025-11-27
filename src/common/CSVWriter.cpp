@@ -1,3 +1,43 @@
 #include "CSVWriter.h"
+#include <fstream>
+#include <iostream>
 
-// Implementation file for CSV writing functionality
+void CSVWriter::writePoints(vector<Point> points, string filename) {
+    ofstream fout(filename);
+
+    if(!fout.is_open()) {
+        cout << "Could not open points out file!";
+        return;
+    }
+
+    //write header line
+    fout << "id,x,y,cluster_id,distance_to_cluster\n";
+
+    //loop over each point and write them to file
+    for(const Point &pt : points) {
+        fout << pt.id << ","
+             << pt.x << ","
+             << pt.y << ","
+             << pt.cluster_id << ","
+             << pt.distance_to_cluster << endl;
+    }
+}
+
+void CSVWriter::writeClusters(vector<Cluster> clusters, string filename) {
+    ofstream fout(filename);
+
+    if(!fout.is_open()) {
+        cout << "Could not open clusters out file!";
+        return;
+    }
+
+    //write header line
+    fout << "id,x,y\n";
+
+    //loop over each cluster and write to file
+    for(const Cluster &cl : clusters) {
+        fout << cl.id << ","
+             << cl.x << ","
+             << cl.y << endl;
+    }
+}

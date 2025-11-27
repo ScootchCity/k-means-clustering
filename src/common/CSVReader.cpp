@@ -4,7 +4,7 @@
 #include <sstream>
 #include <string>
 
-vector<Point> readCSV(string filename) {
+vector<Point> CSVReader::readCSV(string filename) {
     vector<Point> points;
     ifstream fin;
     fin.open(filename);
@@ -38,7 +38,7 @@ vector<Point> readCSV(string filename) {
         pt.x = x_db;
         pt.y = y_db;
         pt.cluster_id = -1;
-        pt.distance_to_center = -1.0;
+        pt.distance_to_cluster = -1.0;
         
         //push it to the vector
         points.push_back(pt);
