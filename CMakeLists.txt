@@ -1,23 +1,24 @@
-cmake_minimum_required( VERSION 2.8 )
+cmake_minimum_required( VERSION 3.10 )
+project( k-means-clustering )
 
-## Load CMAKE configuration from environment variables
-set( CMAKE_MODULE_PATH $ENV{CMAKE_MODULE_PATH} )
-set( CMAKE_PREFIX_PATH $ENV{CMAKE_PREFIX_PATH} )
-                       
-## Specify a project name
-project( generic_project_name )
+## C++ Standard
+set(CMAKE_CXX_STANDARD 17)
+set(CMAKE_CXX_STANDARD_REQUIRED ON)
 
-
-## Set the build type
-if( NOT CMAKE_BUILD_TYPE )
-  set( CMAKE_BUILD_TYPE "Release" 
-       CACHE STRING "Build configuration 'Release' or 'Debug'."
-       FORCE )
+## C++ compiler options
+if(MSVC)
+    set( CMAKE_CXX_FLAGS "/W4" )
+    set( CMAKE_CXX_FLAGS_DEBUG "/Od /Zi" )
+    set( CMAKE_CXX_FLAGS_RELEASE "/O2" )
+else()
+    set( CMAKE_CXX_FLAGS "-Wall -Wextra" )
+    set( CMAKE_CXX_FLAGS_DEBUG "-g -O0" )
+    set( CMAKE_CXX_FLAGS_RELEASE "-O3" )
 endif()
 
-## Install the executable to <install_directory>/bin
-set(EXECUTABLE_OUTPUT_PATH ${PROJECT_SOURCE_DIR}/bin)
-## Install libraries (if any) to <install_directory>/bin
-set(LIBRARY_OUTPUT_PATH ${PROJECT_SOURCE_DIR}/lib)
+## Add src subdirectory
+add_subdirectory( src )
 
-add_subdirectory(${PROJECT_SOURCE_DIR}/src bin)
+## Install executable
+install( TARGETS kmeans
+         RUNTIME DESTINATION bin )

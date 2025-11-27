@@ -14,8 +14,6 @@ public:
     void writePoints(vector<Point> points, string filename);
     //writes clusters to CSV file
     void writeClusters(vector<Cluster> clusters, string filename);
-    //writes just the x,y (for data generator)
-    void writePointsSimple(vector<Point> points, string filename);
 
 private:
 };
