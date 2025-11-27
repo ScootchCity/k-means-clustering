@@ -4,7 +4,7 @@
 #include <sstream>
 #include <string>
 
-vector<Point> CSVReader::readCSV(string filename) {
+vector<Point> CSVReader::readCSVPoints(string filename) {
     vector<Point> points;
     ifstream fin;
     fin.open(filename);
@@ -46,5 +46,6 @@ vector<Point> CSVReader::readCSV(string filename) {
         id++;
     }
 
+    fin.close();
     return points;
 }

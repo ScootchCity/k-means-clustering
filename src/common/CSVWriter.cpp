@@ -6,7 +6,7 @@ void CSVWriter::writePoints(vector<Point> points, string filename) {
     ofstream fout(filename);
 
     if(!fout.is_open()) {
-        cout << "Could not open points out file!";
+        cout << "Could not open points out file!\n";
         return;
     }
 
@@ -21,13 +21,15 @@ void CSVWriter::writePoints(vector<Point> points, string filename) {
              << pt.cluster_id << ","
              << pt.distance_to_cluster << endl;
     }
+
+    fout.close();
 }
 
 void CSVWriter::writeClusters(vector<Cluster> clusters, string filename) {
     ofstream fout(filename);
 
     if(!fout.is_open()) {
-        cout << "Could not open clusters out file!";
+        cout << "Could not open clusters out file!\n";
         return;
     }
 
@@ -40,4 +42,26 @@ void CSVWriter::writeClusters(vector<Cluster> clusters, string filename) {
              << cl.x << ","
              << cl.y << endl;
     }
+
+    fout.close();
+}
+
+void CSVWriter::writePointsSimple(vector<Point> points, string filename){
+    ofstream fout(filename);
+
+    if(!fout.is_open()) {
+        cout << "Could not open points out file!\n";
+        return;
+    }
+
+    //write header line
+    fout << "x,y\n";
+
+    //just put x and y into file
+    for(const Point &pt : points) {
+        fout << pt.x << ","
+             << pt.y << endl;
+    }
+
+    fout.close();
 }
