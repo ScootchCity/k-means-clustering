@@ -49,12 +49,24 @@ void KMeans::initialize(){
 
 void KMeans::step(){
     //1 step of the algo
+    prev_clusters = clusters;
     assignPointsToClusters();
     updateClusterCenters();
 }
 
 bool KMeans::hasConverged(){
     //returns whether the convergence is under the convergence_threshhold
+    for(int i = 0; i < clusters.size(); i++) {
+        Cluster &cl = clusters[i];
+        Cluster &prev_cl = prev_clusters[i];
+
+        //used inline distance because i didnt want to turn the function into a template
+        double distance = sqrt(pow((cl.x - prev_cl.x), 2) + pow((cl.y - prev_cl.y), 2));
+        if(distance > convergence_threshold) {
+            return false;
+        }
+    }
+    return true;
 }
 
 vector<Point> KMeans::getPoints(){return points;}
@@ -65,11 +77,11 @@ vector<Cluster> KMeans::getClusters(){return clusters;}
 void KMeans::assignPointsToClusters(){
     //assign cluster_id of point to nearest cluster implementation
     //for each point, calculate distance to each cluster center and assign to nearest one
-    for (auto& point : points) {
-        double min_distance = std::numeric_limits<double>::max();
+    for (Point &point : points) {
+        double min_distance = numeric_limits<double>::max();
         int closest_cluster_id = -1;
 
-        for (const auto& cluster : clusters) {
+        for (const Cluster &cluster : clusters) {
             
             double distance = calculateDistance(point, cluster);
             
@@ -93,26 +105,25 @@ void KMeans::updateClusterCenters(){
         double sum_y = 0.0;
         int count = 0;
 
-        for (const auto& point : points) {
+        //sum all points for a cluster
+        for (const Point &point : points) {
             if (point.cluster_id == cluster.id) {
                 sum_x += point.x;
                 sum_y += point.y;
                 count++;
             }
         }
+        //update the cluster (provided it has points)
+        if(count > 0) {
+            cluster.x = sum_x/count;
+            cluster.y = sum_y/count;
+        }
     }
-    
 }
 
 double KMeans::calculateDistance(Point pt, Cluster cl){
     //euclidean distance implementation for calculating distance between point and cluster center
-    //passing a singular point in a singual cluster
+    //passing a singular point in a single cluster
     //take x, y coordinates from the cluster and point and calculate distance from points
-    for (pt; pt.x && pt.y;){
-        for (cl; cl.x && cl.y; ){
-            double distance = sqrt(pow((cl.x - pt.x), 2) + pow((cl.y - pt.y), 2));
-            return distance; 
-        }
-    }
-
+    return sqrt(pow((cl.x - pt.x), 2) + pow((cl.y - pt.y), 2));
 }
