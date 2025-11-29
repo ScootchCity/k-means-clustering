@@ -23,7 +23,7 @@ private:
     vector<Cluster> clusters;           //all the clusters
     vector<Cluster> prev_clusters;      //previous clusters to check convergence
     int k;                              //number of clusters to make
-    double convergence_threshold;      //value of convergence at which algo is done
+    double convergence_threshold;       //value of convergence at which algo is done
 
     void assignPointsToClusters();      //assign cluster_id of point to nearest cluster
     void updateClusterCenters();        //recalculate cluster centers

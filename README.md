@@ -7,11 +7,11 @@ A simple k-means clustering implementation in C++ for 2D point data.
 
 ```
 k-means-clustering/
-├── data/                          # Input datasets (CSV files)
-├── output/                        # Clustering results
+├── python_dataset_maker/
+│   └── generate_test_data.py     # Python script to generate test datasets
 ├── src/
-│   ├── Point.h / Point.cpp
-│   ├── Cluster.h / Cluster.cpp
+│   ├── Point.h                   # Point struct definition
+│   ├── Cluster.h                 # Cluster struct definition
 │   ├── CSVReader.h / CSVReader.cpp
 │   ├── CSVWriter.h / CSVWriter.cpp
 │   ├── KMeans.h / KMeans.cpp
@@ -21,12 +21,12 @@ k-means-clustering/
 ```
 
 ### Source Files
-- **Point.h / Point.cpp**: Point structure (id, x, y, cluster_id, distance_to_cluster) and operations.
-- **Cluster.h / Cluster.cpp**: ClusterCenter structure (id, x, y) and operations.
-- **CSVReader.h / CSVReader.cpp**: Parses CSV files containing x,y point data.
+- **Point.h**: Point structure (id, x, y, cluster_id, distance_to_cluster).
+- **Cluster.h**: Cluster structure (id, x, y).
+- **CSVReader.h / CSVReader.cpp**: Reads CSV files containing x,y point data.
 - **CSVWriter.h / CSVWriter.cpp**: Writes points and cluster centers to CSV files.
 - **KMeans.h / KMeans.cpp**: K-means clustering algorithm implementation.
-- **main.cpp**: Entry point for the clustering program.
+- **main.cpp**: Entry point that orchestrates the clustering process.
 
 ## Build Instructions
 
@@ -51,30 +51,32 @@ x,y
 ...
 ```
 
-You can generate test datasets using Python's scikit-learn:
-```python
-from sklearn.datasets import make_blobs
-import pandas as pd
-
-X, y = make_blobs(n_samples=300, centers=3, cluster_std=1.5, random_state=42)
-pd.DataFrame(X, columns=['x', 'y']).to_csv('data/test_data.csv', index=False)
-```
+Test datasets can be generated using the `generate_test_data.py` script in the `python_dataset_maker/` directory. Edit the variables at the top of the script to customize dataset parameters, then run it to generate a CSV file.
 
 ### Run K-Means Clustering
 
 ```bash
-# Linux
-./build/kmeans <input_file> <k> <output_directory>
-./build/kmeans data/test_data.csv 3 output
+kmeans <input_file> <k_value> <convergence_threshold>
+```
+
+Arguments:
+- `input_file`: Path to CSV file containing x,y point data
+- `k_value`: Number of clusters to create
+- `convergence_threshold`: Algorithm stops when cluster centers move less than this distance
+
+Example:
+```bash
+# Linux/Mac
+./build/kmeans data.csv 3 0.01
 
 # Windows
-.\build\Debug\kmeans.exe data/test_data.csv 3 output
+.\build\Debug\kmeans.exe data.csv 3 0.01
 ```
 
 ## Output Format
 
-The k-means program generates CSV files for each iteration in the specified output directory:
-- `iteration_N_points.csv`: Contains id, x, y, cluster_id, distance_to_cluster for each point.
-- `iteration_N_centers.csv`: Contains cluster_id, center_x, center_y for each cluster center.
+The program writes CSV files for each iteration to the current directory:
+- `iteration_N_points.csv`: Contains id, x, y, cluster_id, distance_to_cluster for each point
+- `iteration_N_clusters.csv`: Contains id, x, y for each cluster center
 
-This provides a snapshot of each iteration of the algorithm for visualization or creating animated gifs.
+Each iteration is saved, from initial random assignment (iteration 0) through convergence, allowing visualization of the algorithm's progression.

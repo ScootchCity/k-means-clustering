@@ -1,6 +1,7 @@
 #include "KMeans.h"
 #include <random>
 #include <cmath>
+#include <limits>
 
 //public
 KMeans::KMeans(vector<Point> points, int k, double convergence_threshold){
