@@ -31,16 +31,16 @@ int main(int argc, char* argv[]) {
     int i = 0;
     while(!kmeans.hasConverged()){
         //write current stage to files
-        writer.writePoints(kmeans.getPoints(), "iteration_" + to_string(i) + "_points.csv");
-        writer.writeClusters(kmeans.getClusters(), "iteration_" + to_string(i) + "_clusters.csv");
+        writer.writePoints(kmeans.getPoints(), "output/iteration_" + to_string(i) + "_points.csv");
+        writer.writeClusters(kmeans.getClusters(), "output/iteration_" + to_string(i) + "_clusters.csv");
 
         kmeans.step();
         i++;
     }
 
     //write final state to files
-    writer.writePoints(kmeans.getPoints(), "iteration_" + to_string(i) + "_points.csv");
-    writer.writeClusters(kmeans.getClusters(), "iteration_" + to_string(i) + "_clusters.csv");
+    writer.writePoints(kmeans.getPoints(), "output/iteration_" + to_string(i) + "_points.csv");
+    writer.writeClusters(kmeans.getClusters(), "output/iteration_" + to_string(i) + "_clusters.csv");
 
     return 0;
 }

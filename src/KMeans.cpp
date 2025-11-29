@@ -45,7 +45,14 @@ void KMeans::initialize(){
         clusters.push_back(cl);
     }
 
-    prev_clusters = clusters; //init the prev_clusters as well
+    assignPointsToClusters(); //assign points to their starting clusters
+
+    //initialize prev_clusters with very different values to ensure first iteration runs
+    prev_clusters = clusters;
+    for(Cluster &cl : prev_clusters) {
+        cl.x += 1000000.0;  //make them very far away
+        cl.y += 1000000.0;
+    }
 }
 
 void KMeans::step(){

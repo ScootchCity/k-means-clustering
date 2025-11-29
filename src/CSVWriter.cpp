@@ -11,15 +11,14 @@ void CSVWriter::writePoints(vector<Point> points, string filename) {
     }
 
     //write header line
-    fout << "id,x,y,cluster_id,distance_to_cluster\n";
+    fout << "id,x,y,cluster_id\n";
 
     //loop over each point and write them to file
     for(const Point &pt : points) {
         fout << pt.id << ","
              << pt.x << ","
              << pt.y << ","
-             << pt.cluster_id << ","
-             << pt.distance_to_cluster << endl;
+             << pt.cluster_id << endl;
     }
 
     fout.close();
