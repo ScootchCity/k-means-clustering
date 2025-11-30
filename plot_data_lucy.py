@@ -34,8 +34,8 @@ for filename_points in files_points:
         x_points, 
         y_points,
         c=clid_points,
-        cmap='tab10',
-        s=100
+        cmap='tab20b',
+        s=2 #changes size of points!
         )
 
     plt.scatter(
