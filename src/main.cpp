@@ -28,19 +28,20 @@ int main(int argc, char* argv[]) {
     KMeans kmeans(points, k, convergence_threshold);
     kmeans.initialize();
 
-    int i = 0;
+    //write initial state to files
+    writer.writePoints(kmeans.getPoints(), "output/iteration_" + to_string(i) + "_points.csv");
+    writer.writeClusters(kmeans.getClusters(), "output/iteration_" + to_string(i) + "_clusters.csv");
+
+    int i = 1; //first iteration (the beginning state) was written already so we start at one
     while(!kmeans.hasConverged()){
+        kmeans.step();
+
         //write current stage to files
         writer.writePoints(kmeans.getPoints(), "output/iteration_" + to_string(i) + "_points.csv");
         writer.writeClusters(kmeans.getClusters(), "output/iteration_" + to_string(i) + "_clusters.csv");
 
-        kmeans.step();
         i++;
     }
-
-    //write final state to files
-    writer.writePoints(kmeans.getPoints(), "output/iteration_" + to_string(i) + "_points.csv");
-    writer.writeClusters(kmeans.getClusters(), "output/iteration_" + to_string(i) + "_clusters.csv");
 
     return 0;
 }

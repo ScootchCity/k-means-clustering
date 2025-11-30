@@ -29,7 +29,9 @@ Makefile
 
 # Output directory (clustering results)
 output/*.csv
+output/images/*.png
 
-# Keep data directory tracked (input datasets)
-!data/
-!data/*.csv
+# Keep directory structure but not the files
+!output/.gitkeep
+!output/images/.gitkeep
+!data/.gitkeep
