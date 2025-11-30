@@ -29,8 +29,8 @@ int main(int argc, char* argv[]) {
     kmeans.initialize();
 
     //write initial state to files
-    writer.writePoints(kmeans.getPoints(), "output/iteration_" + to_string(i) + "_points.csv");
-    writer.writeClusters(kmeans.getClusters(), "output/iteration_" + to_string(i) + "_clusters.csv");
+    writer.writePoints(kmeans.getPoints(), "output/iteration_0_points.csv");
+    writer.writeClusters(kmeans.getClusters(), "output/iteration_0_clusters.csv");
 
     int i = 1; //first iteration (the beginning state) was written already so we start at one
     while(!kmeans.hasConverged()){
