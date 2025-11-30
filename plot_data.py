@@ -13,31 +13,42 @@ def read_data(csv_file):
 # oooh pretty colors
 
 def plot_colors(data):
-    colors = ['#FF6B6B', '#4ECDC4', '#45B7D1', '#FFA07A', '#98D8C8', '#F7DC6F', '#BB8FCE', '#85C1E2', '#F8B739', '#52BE80']
-    
+    colors = ['#FF6B6B', '#4ECDC4']
+
     # use explicit Figure and Axes so we can return the Figure object
     fig, ax = plt.subplots(figsize=(10, 8))
 
-    i = 0
-    for column in data.columns[1:]:
-        # plot only points (no connecting lines)
-        ax.scatter(
-            data[data.columns[0]],
-            data[column],
-            color=colors[i % len(colors)],
-            s=50,
-            label=column,
-        )
-        i = i + 1
+    cols = list(data.columns)
+    cols_lower = [c.lower() for c in cols]
 
-    ax.set_xlabel(data.columns[0])
-    ax.set_ylabel('Values')
-    
-    
+    # If columns named 'x' and 'y' exist (case-insensitive), plot x vs y
+    if 'x' in cols_lower and 'y' in cols_lower:
+        xi = cols_lower.index('x')
+        yi = cols_lower.index('y')
+        x_col = cols[xi]
+        y_col = cols[yi]
+        ax.scatter(data[x_col], data[y_col], color=colors[0], s=50, label=y_col)
+        ax.set_xlabel(x_col)
+        ax.set_ylabel(y_col)
+        ax.legend()
+    else:
+        # fallback: use first column as x and plot each other column as y
+        x_col = cols[0]
+        i = 0
+        for column in cols[1:]:
+            ax.scatter(
+                data[x_col],
+                data[column],
+                color=colors[i % len(colors)],
+                s=50,
+                label=column,
+            )
+            i = i + 1
+        ax.set_xlabel(x_col)
+        ax.set_ylabel('Values')
+        ax.legend()
+
     ax.set_title('Data Plots')
-    ax.legend()
-    
-    
     ax.grid(True)
 
     return fig
